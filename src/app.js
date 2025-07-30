@@ -41,3 +41,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
 });
+// On enregistre toutes les routes liées aux tâches sous le chemin /api/tasks
+const taskRoutes = require('./routes/taskRoutes');
+app.use('/api/tasks', taskRoutes);
