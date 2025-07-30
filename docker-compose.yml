@@ -1,0 +1,26 @@
+# Ce fichier permet de lancer plusieurs services en même temps (Node + MongoDB)
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: todo-api
+    ports:
+      - "3000:3000" # Redirige le port 3000 du conteneur vers mon PC
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/tododb
+    volumes:
+      - .:/app
+    depends_on:
+      - mongo # Faut que Mongo soit prêt avant de lancer l’API
+
+  mongo:
+    image: mongo:6
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db # Crée un volume persistant
+
+volumes:
+  mongo-data:
